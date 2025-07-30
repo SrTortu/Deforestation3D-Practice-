@@ -8,8 +8,7 @@ namespace Deforestation
     public class PlayerController : MonoBehaviour
     {
         public HealthSystem HealthSystem => _healthSystem;
-        public CharacterController PlayerMoveController => _player;
-        
+
         [SerializeField] private HealthSystem _healthSystem;
         [SerializeField] private CharacterController _player;
 

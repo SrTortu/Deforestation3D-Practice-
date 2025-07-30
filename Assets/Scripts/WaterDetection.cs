@@ -8,6 +8,8 @@ using UnityEngine;
 public class WaterDetection : MonoBehaviour
 {
     [SerializeField] private float _damageInterval = 1f;
+    [SerializeField] private float _waterDamage = 10f;
+    
     private float _lastTimeDamage = 0;
 
     private void OnTriggerStay(Collider other)
@@ -26,14 +28,13 @@ public class WaterDetection : MonoBehaviour
         
         if (this.gameObject.CompareTag("Player"))
         {
-            GameController.Instance.PlayerDamage(10);
+            GameController.Instance.PlayerController.HealthSystem.TakeDamage(_waterDamage);
             return;
         }
 
         if (this.gameObject.CompareTag("Machine"))
         {
-            GameController.Instance.MachineController.HealthSystem.TakeDamage(10);
-            return;
+            GameController.Instance.MachineController.HealthSystem.TakeDamage(_waterDamage);
         }
         
         
