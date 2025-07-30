@@ -5,10 +5,10 @@ using Deforestation;
 using UnityEngine;
 
 [RequireComponent(typeof(HealthSystem))]
-public class WaterDetection : MonoBehaviour
+public class HidrogenSeaDetection : MonoBehaviour
 {
+    [SerializeField] private float _hidrogenDamage = 10f;
     [SerializeField] private float _damageInterval = 1f;
-    [SerializeField] private float _waterDamage = 10f;
     
     private float _lastTimeDamage = 0;
 
@@ -28,13 +28,13 @@ public class WaterDetection : MonoBehaviour
         
         if (this.gameObject.CompareTag("Player"))
         {
-            GameController.Instance.PlayerController.HealthSystem.TakeDamage(_waterDamage);
+            GameController.Instance.PlayerController.HealthSystem.TakeDamage(_hidrogenDamage);
             return;
         }
 
         if (this.gameObject.CompareTag("Machine"))
         {
-            GameController.Instance.MachineController.HealthSystem.TakeDamage(_waterDamage);
+            GameController.Instance.MachineController.HealthSystem.TakeDamage(_hidrogenDamage);
         }
         
         
