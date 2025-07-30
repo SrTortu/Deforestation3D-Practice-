@@ -50,7 +50,7 @@ namespace Bitgem.VFX.StylisedWater
 
         #endregion
 
-        #region Public methods
+            #region Public methods
 
         protected override void GenerateTiles(ref bool[,,] _tiles)
         {
