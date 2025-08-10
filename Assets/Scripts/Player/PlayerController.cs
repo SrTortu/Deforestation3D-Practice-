@@ -10,16 +10,21 @@ namespace Deforestation
         public HealthSystem HealthSystem => _healthSystem;
 
         [SerializeField] private HealthSystem _healthSystem;
-        [SerializeField] private CharacterController _player;
 
         void Start()
         {
             GameController.Instance.OnPlayerDamage += GetDamage;
+            _healthSystem.OnDeath += PlayerDeath;
         }
 
         private void GetDamage(float damage = 0)
         {
             _healthSystem.TakeDamage(damage);
+        }
+
+        private void PlayerDeath()
+        {
+            
         }
     }
 }
