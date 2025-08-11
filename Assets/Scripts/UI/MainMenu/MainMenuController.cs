@@ -66,7 +66,7 @@ public class MainMenuController : MonoBehaviour
 
     private void SetFxVolume(float volume)
     {
-        _audioMixer.SetFloat("FxVolume", volume);
+        _audioMixer.SetFloat("FXVolume", volume);
     }
 
     private void SetMusicVolume(float volume)
