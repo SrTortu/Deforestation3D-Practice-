@@ -2,13 +2,14 @@ using UnityEngine;
 using TMPro;
 using Deforestation.Recolectables;
 using System;
+using Deforestation.Audio;
 using Deforestation.Interaction;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
 namespace Deforestation.UI
 {
-    public class UIGameController : MonoBehaviour
+    public class UIGameController : Singleton<UIGameController>
     {
         #region Properties
 
@@ -24,6 +25,10 @@ namespace Deforestation.UI
         [SerializeField] private GameObject _settingsPanel;
         [SerializeField] private Slider _musicSlider;
         [SerializeField] private Slider _fxSlider;
+        [SerializeField] private Button _exitGameButton;
+        [SerializeField] private Button _confirmSettingsButton;
+        [SerializeField] private AudioSource _buttonClickSound;
+        [SerializeField] private AudioSource _buttonEnterSound;
 
         [Header("Inventory")] [SerializeField] private TextMeshProUGUI _crystal1Text;
         [SerializeField] private TextMeshProUGUI _crystal2Text;
@@ -35,15 +40,14 @@ namespace Deforestation.UI
         [SerializeField] private Slider _playerSlider;
 
         private bool _settingsOn = false;
+        private float _mouseLockTimer = 0f;
 
-        private
+        #endregion
 
-            #endregion
+        #region Unity Callbacks
 
-            #region Unity Callbacks
-
-            // Start is called before the first frame update
-            void Start()
+        // Start is called before the first frame update
+        void Start()
         {
             SetMixerVolume();
             _settingsPanel.SetActive(false);
@@ -56,20 +60,30 @@ namespace Deforestation.UI
             _settingsButton.onClick.AddListener(SwitchSettings);
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
             _fxSlider.onValueChanged.AddListener(FXVolumeChange);
+            _exitGameButton.onClick.AddListener(ExitButtonOnClick);
+            _confirmSettingsButton.onClick.AddListener(ConfirmSettingsButtonOnClick);
         }
+
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Tab))
             {
-                _settingsOn = !_settingsOn;
-                _settingsPanel.SetActive(_settingsOn);
                 Cursor.lockState = CursorLockMode.None;
             }
+
+            if (_mouseLockTimer > 3f && Cursor.lockState == CursorLockMode.None && !_settingsOn)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                _mouseLockTimer = 0f;
+            }
+
+            _mouseLockTimer += Time.deltaTime;
         }
 
         private void SwitchSettings()
         {
+            AudioController.Instance.ButtonClickFX();
             _settingsOn = !_settingsOn;
             _settingsPanel.SetActive(_settingsOn);
         }
@@ -87,6 +101,11 @@ namespace Deforestation.UI
         #endregion
 
         #region Public Methods
+
+        public void PlayButtonEnterSound()
+        {
+            AudioController.Instance.ButtonEnterFX();
+        }
 
         public void ShowInteraction(string message)
         {
@@ -133,6 +152,27 @@ namespace Deforestation.UI
             float fxValue;
             _mixer.GetFloat("FXVolume", out fxValue);
             _fxSlider.value = fxValue;
+        }
+
+        private void ConfirmSettingsButtonOnClick()
+        {
+            AudioController.Instance.ButtonClickFX();
+            _settingsOn = !_settingsOn;
+            _settingsPanel.SetActive(_settingsOn);
+            if (Cursor.lockState == CursorLockMode.None)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                _mouseLockTimer = 0f;
+            }
+        }
+
+        private void ExitButtonOnClick()
+        {
+            AudioController.Instance.ButtonClickFX();
+            Application.Quit();
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#endif
         }
 
         #endregion
