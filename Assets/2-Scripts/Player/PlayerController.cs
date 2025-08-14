@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Deforestation
@@ -10,11 +12,12 @@ namespace Deforestation
         public HealthSystem HealthSystem => _healthSystem;
 
         [SerializeField] private HealthSystem _healthSystem;
+        
+        public Action OnPlayerDeath;
 
         void Start()
         {
             GameController.Instance.OnPlayerDamage += GetDamage;
-            _healthSystem.OnDeath += PlayerDeath;
         }
 
         private void GetDamage(float damage = 0)
@@ -22,9 +25,6 @@ namespace Deforestation
             _healthSystem.TakeDamage(damage);
         }
 
-        private void PlayerDeath()
-        {
-            
-        }
+        
     }
 }

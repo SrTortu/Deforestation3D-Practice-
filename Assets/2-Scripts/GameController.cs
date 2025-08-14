@@ -65,12 +65,17 @@ namespace Deforestation
             //UI Update
             _playerController.HealthSystem.OnHealthChanged += _uiController.UpdatePlayerHealth;
             _machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
+            _playerController.HealthSystem.OnDeath += PlayerDeath;
             MachineModeOn = false;
         }
 
         // Update is called once per frame
         void Update()
         {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                PlayerDeath();
+            }
         }
 
         #endregion
@@ -92,7 +97,9 @@ namespace Deforestation
         public void PlayerDeath()
         {
             OnPlayerDeath?.Invoke();
+            Cursor.lockState = CursorLockMode.None;
         }
+        
 
         internal void MachineMode(bool machineMode)
         {

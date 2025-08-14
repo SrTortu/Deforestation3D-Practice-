@@ -46,11 +46,11 @@ public class TextAnimator : MonoBehaviour
     {
         while (true)
         {
+            yield return new WaitForSeconds(1.5f); 
             _continueText.DOFade(1, 1.5f);
             yield return new WaitForSeconds(1.5f);
             _continueText.DOFade(0, 1.5f);
-            yield return new WaitForSeconds(1.5f); 
-            Debug.Log("tex");
+            
         }
     }
 }

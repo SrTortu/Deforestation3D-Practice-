@@ -6,6 +6,7 @@ using Deforestation.Audio;
 using Deforestation.Interaction;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 namespace Deforestation.UI
 {
@@ -39,6 +40,10 @@ namespace Deforestation.UI
         [Header("Live")] [SerializeField] private Slider _machineSlider;
         [SerializeField] private Slider _playerSlider;
 
+        [Header("Reset")] [SerializeField] private GameObject _gameOverPanel;
+        [SerializeField] private Button _mainMenuButton;
+        [SerializeField] private Button _exitResetButton;
+
         private bool _settingsOn = false;
         private float _mouseLockTimer = 0f;
 
@@ -56,12 +61,15 @@ namespace Deforestation.UI
             _inventory.OnInventoryUpdated += UpdateUIInventory;
             _interactionSystem.OnShowInteraction += ShowInteraction;
             _interactionSystem.OnHideInteraction += HideInteraction;
+            GameController.Instance.OnPlayerDeath += ShowGameOverPanel;
             //Settings events
             _settingsButton.onClick.AddListener(SwitchSettings);
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);
             _fxSlider.onValueChanged.AddListener(FXVolumeChange);
             _exitGameButton.onClick.AddListener(ExitButtonOnClick);
             _confirmSettingsButton.onClick.AddListener(ConfirmSettingsButtonOnClick);
+            _exitResetButton.onClick.AddListener(ExitButtonOnClick);
+            _mainMenuButton.onClick.AddListener(GoToMainMenu);
         }
 
 
@@ -72,13 +80,18 @@ namespace Deforestation.UI
                 Cursor.lockState = CursorLockMode.None;
             }
 
-            if (_mouseLockTimer > 3f && Cursor.lockState == CursorLockMode.None && !_settingsOn)
+            if (_mouseLockTimer > 3f && Cursor.lockState == CursorLockMode.None && !_settingsOn && !_gameOverPanel.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 _mouseLockTimer = 0f;
             }
 
             _mouseLockTimer += Time.deltaTime;
+        }
+
+        private void ShowGameOverPanel()
+        {
+            _gameOverPanel.SetActive(true);
         }
 
         private void SwitchSettings()
@@ -136,7 +149,6 @@ namespace Deforestation.UI
         private void FXVolumeChange(float value)
         {
             _mixer.SetFloat("FXVolume", value);
-            ;
         }
 
         private void MusicVolumeChange(float value)
@@ -166,6 +178,10 @@ namespace Deforestation.UI
             }
         }
 
+        private void GoToMainMenu()
+        {
+            SceneManager.LoadScene(0);
+        }
         private void ExitButtonOnClick()
         {
             AudioController.Instance.ButtonClickFX();
