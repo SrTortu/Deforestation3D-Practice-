@@ -70,6 +70,11 @@ namespace Deforestation.Machine
 			_movement.enabled = false;
 			_anim.SetBool("Move", false);
 		}
+
+		public bool IsMoving()
+		{
+			return _movement.IsMoving;
+		}
 		#endregion
 
 		#region Private Methods

@@ -24,6 +24,10 @@ namespace Deforestation.Audio
         [SerializeField] private AudioSource _motorMachine;
         [SerializeField] private AudioSource _motorMachine2;
         [SerializeField] private float _fadeTime = 0.2f;
+        [SerializeField] private float _tarjetPitch = 0.2f;
+        [SerializeField] private float _pitchAceleration = 0.2f;
+        [SerializeField] private float _minPitch = 0f;
+        [SerializeField] private float _maxPitch = 2f;
         [SerializeField] private AudioSource _shoot;
         [SerializeField] private AudioSource _outAmmo;
         [SerializeField] private AudioSource _MachineDie;
@@ -76,18 +80,18 @@ namespace Deforestation.Audio
 
         private void Update()
         {
-            //TODO: MOVER A inputcontroller
-            if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+           
+            if (Input.GetKey(KeyCode.W) && GameController.Instance.MachineController.IsMoving())
             {
-                if (!_steps.isPlaying)
-                {
-                    _steps.Play();
-                }
+                _tarjetPitch = Mathf.Min(_tarjetPitch + _pitchAceleration * Time.deltaTime, _maxPitch);
             }
-            else if (_steps.isPlaying)
+            else
             {
-                _steps.Stop();
+                _tarjetPitch = Mathf.Max(_tarjetPitch - (_pitchAceleration*2) * Time.deltaTime, _minPitch);
             }
+            
+            currentSource.pitch = _tarjetPitch;
+            nextSource.pitch = _tarjetPitch;
         }
 
         #endregion
@@ -111,8 +115,8 @@ namespace Deforestation.Audio
         {
             if (state)
             {
-                StartCoroutine(DoCrossfade());
                 _isMachineMode = state;
+                StartCoroutine(DoCrossfade());
             }
             else
             {
@@ -177,6 +181,8 @@ namespace Deforestation.Audio
                 nextSource.Stop();
                 nextSource.time = 0;
             }
+            
+            Debug.Log("Sali");
             
         }
     

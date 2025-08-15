@@ -5,11 +5,13 @@ namespace Deforestation.Machine
 {
 	public class MachineMovement : MonoBehaviour
 	{
+		public bool IsMoving => _isMoving;
 		#region Fields
 		[SerializeField] private float _speedForce = 50;
 		[SerializeField] private float _speedRotation = 15;
 		private Rigidbody _rb;
 		private Vector3 _movementDirection;
+		private bool _isMoving;
 		private Inventory _inventory => GameController.Instance.Inventory;
 
 		[Header("Energy")]
@@ -17,8 +19,7 @@ namespace Deforestation.Machine
 		private float energyTimer = 0f;
 		#endregion
 
-		#region Properties
-		#endregion
+		
 
 		#region Unity Callbacks	
 		private void Awake()
@@ -34,6 +35,7 @@ namespace Deforestation.Machine
 				_movementDirection = new Vector3(Input.GetAxis("Vertical"), 0, 0);
 				transform.Rotate(Vector3.up * _speedRotation * Time.deltaTime * Input.GetAxis("Horizontal"));
 				Debug.DrawRay(transform.position, transform.InverseTransformDirection(_movementDirection.normalized) * _speedForce);
+				_isMoving = true;
 
 				//Energy
 				if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
@@ -46,6 +48,7 @@ namespace Deforestation.Machine
 			else
 			{
 				GameController.Instance.MachineController.StopMoving();
+				_isMoving = false;
 			}
 
 			CheckGround();
@@ -66,10 +69,10 @@ namespace Deforestation.Machine
 			// Dibuja el rayo en el editor
 			Debug.DrawRay(transform.position, direction * maxDistance, Color.red);
 
-			// Calcula la máscara de la capa correctamente
+			// Calcula la mï¿½scara de la capa correctamente
 			int layerMask = 1 << LayerMask.NameToLayer("Terrain");
 			
-			// Lanza un rayo hacia abajo desde la posición del objeto
+			// Lanza un rayo hacia abajo desde la posiciï¿½n del objeto
 			if (!Physics.Raycast(transform.position, direction, out hit, maxDistance, layerMask))
 				_rb.AddRelativeForce(direction * force);
 		}
@@ -86,7 +89,7 @@ namespace Deforestation.Machine
 		}
 		private void OnCollisionEnter(Collision collision)
 		{
-			//Hacemos daño por contacto a los Stegasaurus
+			//Hacemos daï¿½o por contacto a los Stegasaurus
 			HealthSystem target = collision.gameObject.GetComponent<HealthSystem>();
 			if (target != null)
 			{
