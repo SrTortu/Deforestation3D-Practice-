@@ -61,7 +61,8 @@ namespace Deforestation.UI
             _inventory.OnInventoryUpdated += UpdateUIInventory;
             _interactionSystem.OnShowInteraction += ShowInteraction;
             _interactionSystem.OnHideInteraction += HideInteraction;
-            GameController.Instance.OnPlayerDeath += ShowGameOverPanel;
+            GameController.Instance.PlayerController.HealthSystem.OnDeath += ShowGameOverPanel;
+            GameController.Instance.MachineController.HealthSystem.OnDeath += ShowGameOverPanel;
             //Settings events
             _settingsButton.onClick.AddListener(SwitchSettings);
             _musicSlider.onValueChanged.AddListener(MusicVolumeChange);

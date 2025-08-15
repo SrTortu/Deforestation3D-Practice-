@@ -22,7 +22,6 @@ namespace Deforestation
         //Events
         public Action<bool> OnMachineModeChange;
         public Action<float> OnPlayerDamage;
-        public Action OnPlayerDeath;
 
         public bool MachineModeOn
         {
@@ -96,7 +95,6 @@ namespace Deforestation
 
         public void PlayerDeath()
         {
-            OnPlayerDeath?.Invoke();
             Cursor.lockState = CursorLockMode.None;
         }
         

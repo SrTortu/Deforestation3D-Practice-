@@ -1,5 +1,7 @@
 using UnityEngine;
 using System;
+using Deforestation.Audio;
+
 namespace Deforestation.Machine.Weapon
 {
 
@@ -35,15 +37,21 @@ namespace Deforestation.Machine.Weapon
 			if (Physics.Raycast(ray, out hit))
 			{
 				Vector3 direccion = hit.point - transform.position;
-				direccion.y = 0; // Mantener la rotación solo en el eje Y
+				direccion.y = 0;
 
 				Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
 				_towerWeapon.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, _speedRotation * Time.deltaTime);
 			}
-
-			if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn && GameController.Instance.Inventory.UseResource(Recolectables.RecolectableType.SuperCrystal))
+			if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn)
 			{
-				Shoot(hit.point);
+				if (GameController.Instance.Inventory.UseResource(Recolectables.RecolectableType.SuperCrystal))
+				{
+					Shoot(hit.point);
+				}
+				else
+				{
+					AudioController.Instance.PlayOutAmmo();
+				}
 			}
 		}
 

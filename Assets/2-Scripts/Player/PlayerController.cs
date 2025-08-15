@@ -13,7 +13,6 @@ namespace Deforestation
 
         [SerializeField] private HealthSystem _healthSystem;
         
-        public Action OnPlayerDeath;
 
         void Start()
         {
