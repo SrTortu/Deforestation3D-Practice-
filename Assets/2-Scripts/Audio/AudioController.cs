@@ -21,6 +21,7 @@ namespace Deforestation.Audio
         [Header("MachineFX")] [SerializeField] private AudioSource _steps;
         [SerializeField] private AudioSource _machineOn;
         [SerializeField] private AudioSource _machineOff;
+        [SerializeField] private AudioSource _OpenDoor;
         [SerializeField] private AudioSource _motorMachine;
         [SerializeField] private AudioSource _motorMachine2;
         [SerializeField] private float _fadeTime = 0.2f;
@@ -35,8 +36,8 @@ namespace Deforestation.Audio
 
         [Space(20)] [Header("PlayerFx")] [SerializeField]
         private AudioSource _playerDie;
-
         [SerializeField] private AudioSource _playerTakeDamage;
+        [SerializeField] private AudioSource _playerPickItem;
 
         [Space(20)] [Header("GameFx")] [SerializeField]
         private AudioSource _textFX;
@@ -111,6 +112,11 @@ namespace Deforestation.Audio
             _outAmmo.Play();
         }
 
+        public void PickItemSound()
+        {
+            _playerPickItem.Play();
+        }
+
         public void PlayMotorMachine(bool state)
         {
             if (state)
@@ -122,6 +128,11 @@ namespace Deforestation.Audio
             {
                 _isMachineMode = state;
             }
+        }
+
+        public void PlayOpenDoor()
+        {
+            _OpenDoor.Play();
         }
 
 

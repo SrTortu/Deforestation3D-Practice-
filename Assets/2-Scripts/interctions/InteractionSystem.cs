@@ -2,6 +2,7 @@ using UnityEngine;
 using Deforestation.UI;
 using Deforestation.Recolectables;
 using System;
+using Deforestation.Audio;
 
 namespace Deforestation.Interaction
 {
@@ -30,6 +31,7 @@ namespace Deforestation.Interaction
 				{
 					_inventory.AddRecolectable(recolectable.Type, recolectable.Count);
 					recolectable.Interact();
+					AudioController.Instance.PickItemSound();
 				}
 				//Mahine Interaction
 				if (_currentInteraction is MachineInteraction machineInteraction)
