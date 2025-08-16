@@ -23,13 +23,14 @@ namespace Deforestation.Interaction
 
         [SerializeField] protected MachineInteractionType _type;
         [SerializeField] protected Transform _target;
+        [SerializeField] protected Transform _startPoint;
         [SerializeField] protected InteractableInfo _interactableInfo;
 
         private bool _isOpenDoor = false;
-
         #endregion
 
         #region Public Methods
+        
 
         public InteractableInfo GetInfo()
         {
@@ -62,12 +63,11 @@ namespace Deforestation.Interaction
 
         IEnumerator OpenDoor()
         {
-            Vector3 positionTemp = transform.position;
             transform.DOMove(_target.transform.position, 3f);
             AudioController.Instance.PlayOpenDoor();
             yield return new WaitForSeconds(3f);
             AudioController.Instance.PlayOpenDoor();
-            transform.DOMove(positionTemp, 3f);
+            transform.DOMove(_startPoint.position, 3f);
             yield return new WaitForSeconds(3f);
             _isOpenDoor = false;
 
