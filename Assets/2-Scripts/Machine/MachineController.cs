@@ -5,7 +5,7 @@ using Deforestation.Machine.Weapon;
 namespace Deforestation.Machine
 {
 	[RequireComponent (typeof(HealthSystem))]
-	public class MachineController : MonoBehaviour
+	public class MachineController : Singleton<MachineController>
 	{
 		#region Properties
 		public HealthSystem HealthSystem => _health;
@@ -74,6 +74,11 @@ namespace Deforestation.Machine
 		public bool IsMoving()
 		{
 			return _movement.IsMoving;
+		}
+
+		public void JumpAnim()
+		{
+			_anim.SetTrigger("Jump");
 		}
 		#endregion
 

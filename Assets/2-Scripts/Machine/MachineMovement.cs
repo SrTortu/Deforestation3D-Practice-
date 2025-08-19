@@ -40,9 +40,11 @@ namespace Deforestation.Machine
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.Space) && _isMoving && _machineGravity.IsGrounded)
+            if (Input.GetKeyUp(KeyCode.Space) && _isMoving && _machineGravity.IsGrounded)
             {
+                
                 _isJumping = true;
+              
             }
             if (_inventory.HasResource(RecolectableType.HyperCrystal))
             {
@@ -91,6 +93,7 @@ namespace Deforestation.Machine
 
         private void Jump()
         {
+            _machineAnimator.SetTrigger("Jump");
             _rb.AddRelativeForce(Vector3.up * _jumpForce, ForceMode.Impulse);
             _isJumping = false;
         }
