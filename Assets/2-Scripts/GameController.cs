@@ -97,7 +97,7 @@ namespace Deforestation
         {
             Cursor.lockState = CursorLockMode.None;
         }
-        
+
 
         internal void MachineMode(bool machineMode)
         {
@@ -106,7 +106,7 @@ namespace Deforestation
             _playerController.gameObject.SetActive(!machineMode);
             _playerController.enabled = !machineMode;
             _interactionSystem.enabled = false;
-            
+
             //Cursor + UI
             if (machineMode)
             {
@@ -132,6 +132,7 @@ namespace Deforestation
                 _interactionSystem.enabled = true;
                 //Camera
                 _virtualCamera.Follow = _playerFollow;
+                _playerController.transform.rotation = Quaternion.identity;
                 Cursor.lockState = CursorLockMode.Locked;
             }
 
