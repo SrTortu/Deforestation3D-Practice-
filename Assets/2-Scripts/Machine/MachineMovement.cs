@@ -17,6 +17,7 @@ namespace Deforestation.Machine
         [SerializeField] private float _jumpForce = 15;
         [SerializeField] private Animator _machineAnimator;
         private Rigidbody _rb;
+        private MachineGravity _machineGravity;
         private Vector3 _movementDirection;
         private bool _isMoving;
         private bool _isGrounded = false;
@@ -34,11 +35,12 @@ namespace Deforestation.Machine
         private void Awake()
         {
             _rb = GetComponent<Rigidbody>();
+            _machineGravity = GetComponent<MachineGravity>();
         }
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.Space) && _isMoving)
+            if (Input.GetKey(KeyCode.Space) && _isMoving && _machineGravity.IsGrounded)
             {
                 _isJumping = true;
             }
@@ -84,20 +86,8 @@ namespace Deforestation.Machine
                 int index = other.GetComponent<Tree>().Index;
                 GameController.Instance.TerrainController.DestroyTree(index, other.transform.position);
             }
-
-            if (other.CompareTag("Terrain"))
-            {
-                _machineAnimator.applyRootMotion = _isGrounded; ;
-            }
         }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Terrain"))
-            {
-                _machineAnimator.applyRootMotion = _isGrounded;
-            }
-        }
+        
 
         private void Jump()
         {

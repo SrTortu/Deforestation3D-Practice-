@@ -7,6 +7,8 @@ using Tree = UnityEngine.Tree;
 
 public class MachineGravity : MonoBehaviour
 {
+    public bool IsGrounded => _isGrounded;
+    
     [SerializeField] private Animator _machineAnimator;
     [SerializeField] private Rigidbody _machineRigidbody;
     [SerializeField] private float _gravityForce;
@@ -29,7 +31,6 @@ public class MachineGravity : MonoBehaviour
         if (other.CompareTag("Terrain"))
         {
             _machineAnimator.applyRootMotion = _isGrounded;
-            ;
         }
     }
 
@@ -65,6 +66,11 @@ public class MachineGravity : MonoBehaviour
         if (!Physics.Raycast(transform.position, direction, out hit, _fallDistance, layerMask))
         {
             _machineRigidbody.AddForce(direction * _gravityForce, ForceMode.Impulse);
+            _isGrounded = false;
+        }
+        else
+        {
+            _isGrounded = true;
         }
     }
 

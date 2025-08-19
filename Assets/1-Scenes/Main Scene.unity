@@ -10687,11 +10687,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _machineAnimator: {fileID: 1988690508}
   _machineRigidbody: {fileID: 1988690509}
-  _gravityForce: 5000
+  _gravityForce: 11978
   _jumpHeight: 0
   _jumpForce: 0
   _jumpColdown: 0
-  _fallDistance: 4
+  _fallDistance: 2
 --- !u!1001 &2005773954
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13353,6 +13353,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3627660020212214118, guid: 11a3a569d1a2b774fbeb86df1aae52a5,
+        type: 3}
+      propertyPath: _jumpForce
+      value: 100000
       objectReference: {fileID: 0}
     - target: {fileID: 3627660020212214118, guid: 11a3a569d1a2b774fbeb86df1aae52a5,
         type: 3}
