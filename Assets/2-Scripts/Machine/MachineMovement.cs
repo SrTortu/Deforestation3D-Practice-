@@ -8,16 +8,19 @@ namespace Deforestation.Machine
     public class MachineMovement : MonoBehaviour
     {
         public bool IsMoving => _isMoving;
+        public bool IsJumping => _isJumping;
 
         #region Fields
 
         [SerializeField] private float _speedForce = 50;
         [SerializeField] private float _speedRotation = 15;
+        [SerializeField] private float _jumpForce = 15;
         [SerializeField] private Animator _machineAnimator;
         private Rigidbody _rb;
         private Vector3 _movementDirection;
         private bool _isMoving;
         private bool _isGrounded = false;
+        private bool _isJumping = false;
         private Inventory _inventory => GameController.Instance.Inventory;
 
         [Header("Energy")] [SerializeField] private float energyDecayRate = 20f;
@@ -35,6 +38,10 @@ namespace Deforestation.Machine
 
         private void Update()
         {
+            if (Input.GetKey(KeyCode.Space) && _isMoving)
+            {
+                _isJumping = true;
+            }
             if (_inventory.HasResource(RecolectableType.HyperCrystal))
             {
                 //Movement
@@ -63,6 +70,10 @@ namespace Deforestation.Machine
         private void FixedUpdate()
         {
             _rb.AddRelativeForce(_movementDirection.normalized * _speedForce, ForceMode.Impulse);
+            if (_isJumping)
+            {
+                Jump();
+            }
         }
         
 
@@ -87,7 +98,12 @@ namespace Deforestation.Machine
                 _machineAnimator.applyRootMotion = _isGrounded;
             }
         }
-        
+
+        private void Jump()
+        {
+            _rb.AddRelativeForce(Vector3.up * _jumpForce, ForceMode.Impulse);
+            _isJumping = false;
+        }
 
         #endregion
 

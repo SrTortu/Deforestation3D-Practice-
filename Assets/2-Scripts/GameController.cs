@@ -102,6 +102,7 @@ namespace Deforestation
         internal void MachineMode(bool machineMode)
         {
             MachineModeOn = machineMode;
+            _machine.enabled = machineMode;
             //Player
             _playerController.gameObject.SetActive(!machineMode);
             _playerController.enabled = !machineMode;
@@ -130,6 +131,7 @@ namespace Deforestation
                 _machine.GetComponent<MachineMovement>().enabled = false;
                 _playerController.transform.parent = null;
                 _interactionSystem.enabled = true;
+                _machine.enabled = false;
                 //Camera
                 _virtualCamera.Follow = _playerFollow;
                 _playerController.transform.rotation = Quaternion.identity;

@@ -39,7 +39,7 @@ namespace Deforestation.Machine
 		void Update()
 		{
 			//TODO: Mover a Input System
-			if (Input.GetKeyUp(KeyCode.Escape)&& _movement.enabled)
+			if (Input.GetKeyUp(KeyCode.Escape))
 			{
 				StopDriving();
 			}
