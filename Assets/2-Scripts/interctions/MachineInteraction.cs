@@ -26,11 +26,20 @@ namespace Deforestation.Interaction
         [SerializeField] protected Transform _startPoint;
         [SerializeField] protected InteractableInfo _interactableInfo;
 
-        private bool _isOpenDoor = false;
+        private Vector3 _doorDestination = Vector3.zero;
+        private bool _isDoorOpen = false;
+
         #endregion
 
         #region Public Methods
-        
+
+        public void Update()
+        {
+            if (_type.Equals(MachineInteractionType.Door))
+            {
+                _doorDestination = _startPoint.position;
+            }
+        }
 
         public InteractableInfo GetInfo()
         {
@@ -42,9 +51,9 @@ namespace Deforestation.Interaction
         {
             if (_type == MachineInteractionType.Door)
             {
-                if (!_isOpenDoor)
+                if (!_isDoorOpen)
                 {
-                    _isOpenDoor = true;
+                    _isDoorOpen = true;
                     StartCoroutine(OpenDoor());
                 }
             }
@@ -61,16 +70,27 @@ namespace Deforestation.Interaction
             }
         }
 
-        IEnumerator OpenDoor()
+        public IEnumerator OpenDoor()
         {
-            transform.DOMove(_target.transform.position, 3f);
+            _isDoorOpen = true;
             AudioController.Instance.PlayOpenDoor();
-            yield return new WaitForSeconds(3f);
+            yield return StartCoroutine(MoveObject(_target));
+            yield return new WaitForSeconds(1f);
             AudioController.Instance.PlayOpenDoor();
-            transform.DOMove(_startPoint.position, 3f);
-            yield return new WaitForSeconds(3f);
-            _isOpenDoor = false;
+            yield return StartCoroutine(MoveObject(_startPoint));
+            _isDoorOpen = false;
+        }
 
+        // Corrutina para mover el objeto hacia un Transform de destino
+        private IEnumerator MoveObject(Transform endPointTransform)
+        {
+            while (transform.position != endPointTransform.position)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, endPointTransform.position,
+                    1f * Time.deltaTime);
+                yield return null; 
+            }
+            transform.position = endPointTransform.position;
         }
 
         #endregion

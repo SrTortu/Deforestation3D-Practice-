@@ -10,9 +10,14 @@ public class MachineGravity : MonoBehaviour
     [SerializeField] private Animator _machineAnimator;
     [SerializeField] private Rigidbody _machineRigidbody;
     [SerializeField] private float _gravityForce;
+    [SerializeField] private float _jumpHeight;
+    [SerializeField] private float _jumpForce;
+    [SerializeField] private float _jumpColdown;
     [SerializeField] private float _fallDistance;
+    
 
     private bool _isGrounded = true;
+    private bool _isJumping = false;
 
     private void Update()
     {
@@ -61,5 +66,10 @@ public class MachineGravity : MonoBehaviour
         {
             _machineRigidbody.AddForce(direction * _gravityForce, ForceMode.Impulse);
         }
+    }
+
+    private void Jump()
+    {
+        
     }
 }

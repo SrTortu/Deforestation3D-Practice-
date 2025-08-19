@@ -57,35 +57,14 @@ namespace Deforestation.Machine
                 GameController.Instance.MachineController.StopMoving();
                 _isMoving = false;
             }
-
-            CheckGround();
+            
         }
 
         private void FixedUpdate()
         {
             _rb.AddRelativeForce(_movementDirection.normalized * _speedForce, ForceMode.Impulse);
         }
-
-
-        void CheckGround()
-        {
-            RaycastHit hit;
-            float maxDistance = 4f;
-            float force = 100000;
-            Vector3 direction = -transform.up;
-
-            // Dibuja el rayo en el editor
-            Debug.DrawRay(transform.position, direction * maxDistance, Color.red);
-
-            // Calcula la m�scara de la capa correctamente
-            int layerMask = 1 << LayerMask.NameToLayer("Terrain");
-
-            // Lanza un rayo hacia abajo desde la posici�n del objeto
-            if (!Physics.Raycast(transform.position, direction, out hit, maxDistance, layerMask))
-            {
-                _machineAnimator.applyRootMotion = true;
-            }
-        }
+        
 
         private void OnTriggerEnter(Collider other)
         {
@@ -108,26 +87,10 @@ namespace Deforestation.Machine
                 _machineAnimator.applyRootMotion = _isGrounded;
             }
         }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            //Hacemos da�o por contacto a los Stegasaurus
-            HealthSystem target = collision.gameObject.GetComponent<HealthSystem>();
-            if (target != null)
-            {
-                target.TakeDamage(10);
-            }
-        }
+        
 
         #endregion
 
-        #region Private Methods
-
-        #endregion
-
-        #region Public Methods
-
-        #endregion
 
         private void OnDrawGizmos()
         {

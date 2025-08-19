@@ -105,7 +105,8 @@ namespace Deforestation
             //Player
             _playerController.gameObject.SetActive(!machineMode);
             _playerController.enabled = !machineMode;
-
+            _interactionSystem.enabled = false;
+            
             //Cursor + UI
             if (machineMode)
             {
@@ -125,11 +126,10 @@ namespace Deforestation
             }
             else
             {
-                _machine.enabled = false;
                 _machine.WeaponController.enabled = false;
                 _machine.GetComponent<MachineMovement>().enabled = false;
                 _playerController.transform.parent = null;
-
+                _interactionSystem.enabled = true;
                 //Camera
                 _virtualCamera.Follow = _playerFollow;
                 Cursor.lockState = CursorLockMode.Locked;
