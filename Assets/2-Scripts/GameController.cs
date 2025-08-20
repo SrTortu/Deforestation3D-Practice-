@@ -21,7 +21,6 @@ namespace Deforestation
 
         //Events
         public Action<bool> OnMachineModeChange;
-        public Action<float> OnPlayerDamage;
 
         public bool MachineModeOn
         {
@@ -87,11 +86,7 @@ namespace Deforestation
             _playerController.transform.position = target;
             _playerController.enabled = true;
         }
-
-        public void PlayerDamage(float damage)
-        {
-            OnPlayerDamage?.Invoke(damage);
-        }
+        
 
         public void PlayerDeath()
         {

@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using Deforestation.Recolectables;
 using System;
+using System.Collections;
 using Deforestation.Audio;
 using Deforestation.Interaction;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ namespace Deforestation.UI
 
         [Header("Inventory")] [SerializeField] private TextMeshProUGUI _crystal1Text;
         [SerializeField] private TextMeshProUGUI _crystal2Text;
+        [SerializeField] private TextMeshProUGUI _crystal3Text;
 
         [Header("Interacytion")] [SerializeField]
         private InteractionPanel _interactionPanel;
@@ -43,6 +45,10 @@ namespace Deforestation.UI
         [Header("Reset")] [SerializeField] private GameObject _gameOverPanel;
         [SerializeField] private Button _mainMenuButton;
         [SerializeField] private Button _exitResetButton;
+
+        [Header("HUD")] 
+        [SerializeField] private TextMeshProUGUI _jumpErrorText;
+        [SerializeField] private TextMeshProUGUI _ammoErrorText;
 
         private bool _settingsOn = false;
         private float _mouseLockTimer = 0f;
@@ -81,7 +87,8 @@ namespace Deforestation.UI
                 Cursor.lockState = CursorLockMode.None;
             }
 
-            if (_mouseLockTimer > 3f && Cursor.lockState == CursorLockMode.None && !_settingsOn && !_gameOverPanel.activeSelf)
+            if (_mouseLockTimer > 3f && Cursor.lockState == CursorLockMode.None && !_settingsOn &&
+                !_gameOverPanel.activeSelf)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 _mouseLockTimer = 0f;
@@ -138,13 +145,31 @@ namespace Deforestation.UI
         private void UpdateUIInventory()
         {
             if (_inventory.InventoryStack.ContainsKey(RecolectableType.SuperCrystal))
+            {
                 _crystal1Text.text = _inventory.InventoryStack[RecolectableType.SuperCrystal].ToString();
+            }
             else
+            {
                 _crystal1Text.text = "0";
+            }
+
             if (_inventory.InventoryStack.ContainsKey(RecolectableType.HyperCrystal))
+            {
                 _crystal2Text.text = _inventory.InventoryStack[RecolectableType.HyperCrystal].ToString();
+            }
             else
+            {
                 _crystal2Text.text = "0";
+            }
+
+            if (_inventory.InventoryStack.ContainsKey(RecolectableType.MegaCrystal))
+            {
+                _crystal3Text.text = _inventory.InventoryStack[RecolectableType.MegaCrystal].ToString();
+            }
+            else
+            {
+                _crystal3Text.text = "0";
+            }
         }
 
         private void FXVolumeChange(float value)
@@ -183,6 +208,7 @@ namespace Deforestation.UI
         {
             SceneManager.LoadScene(0);
         }
+
         private void ExitButtonOnClick()
         {
             AudioController.Instance.ButtonClickFX();
@@ -193,5 +219,22 @@ namespace Deforestation.UI
         }
 
         #endregion
+
+        public void InsufficientMegaCrystal()
+        {
+            StartCoroutine(ShowText(_jumpErrorText,1.5f));
+        }
+
+        public void InsufficientAmmoCrystal()
+        {
+            StartCoroutine(ShowText(_ammoErrorText,1.5f));
+        }
+
+        IEnumerator ShowText(TextMeshProUGUI text, float time)
+        {
+            text.gameObject.SetActive(true); 
+            yield return new WaitForSeconds(time);
+            text.gameObject.SetActive(false);
+        }
     }
 }

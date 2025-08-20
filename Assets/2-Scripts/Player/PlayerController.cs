@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Deforestation.Audio;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -13,16 +14,15 @@ namespace Deforestation
 
         [SerializeField] private HealthSystem _healthSystem;
         
-
-        void Start()
-        {
-            GameController.Instance.OnPlayerDamage += GetDamage;
-        }
-
-        private void GetDamage(float damage = 0)
+        
+        public void GetDamage(float damage = 0)
         {
             _healthSystem.TakeDamage(damage);
+            AudioController.Instance.PlayerDamage();
+            
         }
+        
+        
 
         
     }

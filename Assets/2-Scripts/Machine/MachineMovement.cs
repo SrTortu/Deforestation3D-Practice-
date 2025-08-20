@@ -1,6 +1,8 @@
 using System;
+using Deforestation.Audio;
 using Deforestation.Dinosaurus;
 using Deforestation.Recolectables;
+using Deforestation.UI;
 using UnityEngine;
 
 namespace Deforestation.Machine
@@ -40,12 +42,22 @@ namespace Deforestation.Machine
 
         private void Update()
         {
+            //jump
             if (Input.GetKeyUp(KeyCode.Space) && _isMoving && _machineGravity.IsGrounded)
             {
-                
-                _isJumping = true;
-              
+                if (_inventory.HasResource(RecolectableType.MegaCrystal, 20))
+                {
+                    _inventory.UseResource(RecolectableType.MegaCrystal, 20);
+                    _isJumping = true;
+                    AudioController.Instance.PlayMachineJump();
+                }
+                else
+                {
+                    AudioController.Instance.PlayError();
+                    UIGameController.Instance.InsufficientMegaCrystal();
+                }
             }
+
             if (_inventory.HasResource(RecolectableType.HyperCrystal))
             {
                 //Movement
@@ -68,7 +80,6 @@ namespace Deforestation.Machine
                 GameController.Instance.MachineController.StopMoving();
                 _isMoving = false;
             }
-            
         }
 
         private void FixedUpdate()
@@ -79,7 +90,7 @@ namespace Deforestation.Machine
                 Jump();
             }
         }
-        
+
 
         private void OnTriggerEnter(Collider other)
         {
@@ -89,7 +100,7 @@ namespace Deforestation.Machine
                 GameController.Instance.TerrainController.DestroyTree(index, other.transform.position);
             }
         }
-        
+
 
         private void Jump()
         {

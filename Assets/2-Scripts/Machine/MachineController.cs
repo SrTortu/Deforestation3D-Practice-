@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Deforestation.Audio;
 using Deforestation.Machine.Weapon;
 
 namespace Deforestation.Machine
@@ -69,6 +70,16 @@ namespace Deforestation.Machine
 		{
 			_movement.enabled = false;
 			_anim.SetBool("Move", false);
+		}
+		public void GetDamage(float damage = 0)
+		{
+			_health.TakeDamage(damage);
+			AudioController.Instance.MachineDamage();
+		}
+
+		public void Die()
+		{
+			
 		}
 
 		public bool IsMoving()

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using Deforestation.Audio;
+using Deforestation.UI;
 
 namespace Deforestation.Machine.Weapon
 {
@@ -51,6 +52,7 @@ namespace Deforestation.Machine.Weapon
 				else
 				{
 					AudioController.Instance.PlayOutAmmo();
+					UIGameController.Instance.InsufficientAmmoCrystal();
 				}
 			}
 		}

@@ -28,13 +28,13 @@ public class HidrogenSeaDetection : MonoBehaviour
         
         if (this.gameObject.CompareTag("Player"))
         {
-            GameController.Instance.PlayerController.HealthSystem.TakeDamage(_hidrogenDamage);
+            GameController.Instance.PlayerController.GetDamage(_hidrogenDamage);
             return;
         }
 
         if (this.gameObject.CompareTag("Machine"))
         {
-            GameController.Instance.MachineController.HealthSystem.TakeDamage(_hidrogenDamage);
+            GameController.Instance.MachineController.GetDamage(_hidrogenDamage);
         }
         
         

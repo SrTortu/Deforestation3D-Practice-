@@ -22,6 +22,7 @@ namespace Deforestation.Audio
         [SerializeField] private AudioSource _machineOn;
         [SerializeField] private AudioSource _machineOff;
         [SerializeField] private AudioSource _OpenDoor;
+        [SerializeField] private AudioSource _machineJump;
         [SerializeField] private AudioSource _motorMachine;
         [SerializeField] private AudioSource _motorMachine2;
         [SerializeField] private float _fadeTime = 0.2f;
@@ -31,11 +32,12 @@ namespace Deforestation.Audio
         [SerializeField] private float _maxPitch = 2f;
         [SerializeField] private AudioSource _shoot;
         [SerializeField] private AudioSource _outAmmo;
-        [SerializeField] private AudioSource _MachineDie;
-        [SerializeField] private AudioSource _MachineTakeDamage;
+        [SerializeField] private AudioSource _machineDie;
+        [SerializeField] private AudioSource _machineTakeDamage;
 
         [Space(20)] [Header("PlayerFx")] [SerializeField]
         private AudioSource _playerDie;
+
         [SerializeField] private AudioSource _playerTakeDamage;
         [SerializeField] private AudioSource _playerPickItem;
 
@@ -44,16 +46,19 @@ namespace Deforestation.Audio
 
         [SerializeField] private AudioSource _buttonClick;
         [SerializeField] private AudioSource _buttonEnter;
+        [SerializeField] private AudioSource _error;
 
+        [Space(20)] [Header("Dinosaurs")] 
+        
         [Space(20)] [Header("Music")] [SerializeField]
         private AudioSource _musicMachine;
 
+        [SerializeField] private AudioSource _gameOverMusic;
         [SerializeField] private AudioSource _musicHuman;
-        
+
         private AudioSource currentSource;
         private AudioSource nextSource;
         private bool _isMachineMode = false;
-
 
         #endregion
 
@@ -74,23 +79,22 @@ namespace Deforestation.Audio
         private void Start()
         {
             _musicHuman.Play();
-            
+
             currentSource = _motorMachine;
             nextSource = _motorMachine2;
         }
 
         private void Update()
         {
-           
             if (Input.GetKey(KeyCode.W) && GameController.Instance.MachineController.IsMoving())
             {
                 _tarjetPitch = Mathf.Min(_tarjetPitch + _pitchAceleration * Time.deltaTime, _maxPitch);
             }
             else
             {
-                _tarjetPitch = Mathf.Max(_tarjetPitch - (_pitchAceleration*2) * Time.deltaTime, _minPitch);
+                _tarjetPitch = Mathf.Max(_tarjetPitch - (_pitchAceleration * 2) * Time.deltaTime, _minPitch);
             }
-            
+
             currentSource.pitch = _tarjetPitch;
             nextSource.pitch = _tarjetPitch;
         }
@@ -117,6 +121,10 @@ namespace Deforestation.Audio
             _playerPickItem.Play();
         }
 
+        public void PlayMachineJump()
+        {
+            _machineJump.Play();
+        }
         public void PlayMotorMachine(bool state)
         {
             if (state)
@@ -135,6 +143,36 @@ namespace Deforestation.Audio
             _OpenDoor.Play();
         }
 
+        public void PlayerDamage()
+        {
+            _playerTakeDamage.Play();
+        }
+
+        public void PlayerDie()
+        {
+            _playerDie.Play();
+        }
+
+        public void MachineDamage()
+        {
+            _machineTakeDamage.Play();
+        }
+
+        public void MachineDie()
+        {
+            _machineDie.Play();
+        }
+        public void PlayError()
+        {
+            _error.Play();
+        }
+
+        public void GameOver()
+        {
+            _musicHuman.DOFade(0, 3);
+            _musicMachine.DOFade(0, 3);
+            _gameOverMusic.Play();
+        }
 
         #region Private Methods
 
@@ -193,10 +231,9 @@ namespace Deforestation.Audio
                 nextSource.time = 0;
             }
             
-            Debug.Log("Sali");
-            
         }
-    
+
         #endregion
+
     }
 }

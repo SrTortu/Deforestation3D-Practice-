@@ -48,8 +48,6 @@ namespace Deforestation.Recolectables
 			return false;
 		}
 		#endregion
-
-		#region Private Methods
-		#endregion
+		
 	}
 }
