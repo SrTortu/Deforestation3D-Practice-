@@ -13,13 +13,22 @@ namespace Deforestation
         public HealthSystem HealthSystem => _healthSystem;
 
         [SerializeField] private HealthSystem _healthSystem;
-        
-        
+
+        private void Start()
+        {
+            _healthSystem.OnDeath += Die;
+        }
+
         public void GetDamage(float damage = 0)
         {
             _healthSystem.TakeDamage(damage);
             AudioController.Instance.PlayerDamage();
             
+        }
+
+        private void Die()
+        {
+            AudioController.Instance.PlayerDie();
         }
         
         

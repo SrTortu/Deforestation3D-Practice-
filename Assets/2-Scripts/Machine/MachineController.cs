@@ -34,6 +34,7 @@ namespace Deforestation.Machine
 		void Start()
 		{
 			_movement.enabled = false;
+			_health.OnDeath += Die;
 		}
 
 		// Update is called once per frame
@@ -79,7 +80,7 @@ namespace Deforestation.Machine
 
 		public void Die()
 		{
-			
+			AudioController.Instance.MachineDie();
 		}
 
 		public bool IsMoving()

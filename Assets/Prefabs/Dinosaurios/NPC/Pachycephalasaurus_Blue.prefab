@@ -1026,6 +1026,7 @@ Transform:
   - {fileID: 6233075447961863300}
   - {fileID: 1118416133062756954}
   - {fileID: 7570147383796677379}
+  - {fileID: 726237088433447043}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &558580619886851198
@@ -1042,6 +1043,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _distanceDetection: 100
   _attackDistance: 15
+  _targetRunTransform: {fileID: 726237088433447043}
+  _dinosaurType: 0
   _attackTime: 2
   _attackDamage: 10
 --- !u!205 &6163568732557521266
@@ -1998,6 +2001,37 @@ Transform:
   m_Children:
   - {fileID: 3700404495234774160}
   m_Father: {fileID: 3017094412739873590}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2653168117582024288
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 726237088433447043}
+  m_Layer: 0
+  m_Name: TargetRun
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &726237088433447043
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653168117582024288}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -61.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1428620413591946755}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2738977073149495066
 GameObject:

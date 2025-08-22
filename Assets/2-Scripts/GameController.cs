@@ -64,6 +64,7 @@ namespace Deforestation
             _playerController.HealthSystem.OnHealthChanged += _uiController.UpdatePlayerHealth;
             _machine.HealthSystem.OnHealthChanged += _uiController.UpdateMachineHealth;
             _playerController.HealthSystem.OnDeath += PlayerDeath;
+            _machine.HealthSystem.OnDeath += PlayerDeath;
             MachineModeOn = false;
         }
 
@@ -91,6 +92,7 @@ namespace Deforestation
         public void PlayerDeath()
         {
             Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0f;
         }
 
 
