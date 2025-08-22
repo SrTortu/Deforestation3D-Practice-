@@ -119,6 +119,7 @@ namespace Deforestation.Dinosaurus
         private void IdleAnim()
         {
             _anim.SetBool("Run", false);
+            _agent.isStopped = true;
             _chase = false;
             _attack = false;
         }
