@@ -73,6 +73,7 @@ namespace Deforestation.Dinosaurus
             if (_chase && _dinosaurType == DinosaurType.Raptor && GameController.Instance.MachineModeOn &&
                 distanceTarget < _distanceDetection)
             {
+                transform.LookAt(_targetAttackTransform);
                 RunAway(_targetRunTransform.position);
                 Debug.Log(" 3");
                 return;
@@ -115,6 +116,12 @@ namespace Deforestation.Dinosaurus
             }
         }
 
+        private Vector3 GetRunawayDirection()
+        {
+            Vector3 direction = _targetAttackTransform.position - transform.position;
+            direction = direction.normalized ;
+            return direction;
+        }
 
         private void IdleAnim()
         {
