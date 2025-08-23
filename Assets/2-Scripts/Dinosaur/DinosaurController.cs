@@ -51,8 +51,7 @@ namespace Deforestation.Dinosaurus
             float distanceTarget = Vector3.Distance(transform.position, _targetAttackTransform.position);
 
             //Chase
-            if (!_chase && !_attack && distanceTarget <
-                _distanceDetection)
+            if (!_chase && !_runAway && !_attack && distanceTarget < _distanceDetection)
             {
                 Run(_targetAttackTransform.position);
                 Debug.Log(" 1");
@@ -60,7 +59,7 @@ namespace Deforestation.Dinosaurus
             }
 
             //chase
-            if (_chase || _attack)
+            if ((_chase || _attack) && !_runAway)
             {
                 NavMeshHit hit;
                 if (NavMesh.SamplePosition(_targetAttackTransform.position, out hit, _attackDistance, 1))
@@ -74,10 +73,11 @@ namespace Deforestation.Dinosaurus
             if (_chase && _dinosaurType == DinosaurType.Raptor && GameController.Instance.MachineModeOn &&
                 distanceTarget < _distanceDetection)
             {
-                Run(_targetRunTransform.position);
+                RunAway(_targetRunTransform.position);
                 Debug.Log(" 3");
                 return;
             }
+            
 
             //Attack
             if ((_chase || _attack) && distanceTarget < _attackDistance)
@@ -88,7 +88,7 @@ namespace Deforestation.Dinosaurus
             }
 
             //Idl
-            if (_chase && distanceTarget > _distanceDetection)
+            if ((_chase || _runAway) && distanceTarget > _distanceDetection)
             {
                 Debug.Log(" 5");
                 IdleAnim();
@@ -122,6 +122,7 @@ namespace Deforestation.Dinosaurus
             _agent.isStopped = true;
             _chase = false;
             _attack = false;
+            _runAway = false;
         }
 
         private void Run(Vector3 destination)
@@ -132,6 +133,17 @@ namespace Deforestation.Dinosaurus
             _chase = true;
             _attack = false;
         }
+        
+        private void RunAway(Vector3 destination)
+        {
+            _anim.SetBool("Run", true);
+            _agent.SetDestination(destination);
+            _agent.isStopped = false;
+            _chase = false;
+            _runAway = true;
+            _attack = false;
+        }
+
 
         private void AttackAnim()
         {
