@@ -4350,6 +4350,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8283541698557517306}
   - component: {fileID: -6698365286412611135}
+  - component: {fileID: -1450391065507018985}
   - component: {fileID: 3796273765040958091}
   - component: {fileID: 8466683960281627183}
   - component: {fileID: 8466683960281627180}
@@ -4358,7 +4359,6 @@ GameObject:
   - component: {fileID: 8929943887029268242}
   - component: {fileID: 4284020341141013211}
   - component: {fileID: -1169098326218900124}
-  - component: {fileID: -1450391065507018985}
   - component: {fileID: -8342282016701199857}
   m_Layer: 0
   m_Name: Pachycephalasaurus_Green
@@ -4404,9 +4404,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _distanceDetection: 100
-  _attackDistance: 15
+  _attackDistance: 7
+  _targetRunTransform: {fileID: 0}
+  _dinosaurType: 0
+  _chase: 0
+  _attack: 0
+  _runAway: 0
   _attackTime: 2
   _attackDamage: 5
+--- !u!114 &-1450391065507018985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8772693103843231552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4360ec04653ff4a97ccfa15b9b1f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!205 &3796273765040958091
 LODGroup:
   m_ObjectHideFlags: 0
@@ -4678,19 +4696,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &-1450391065507018985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8772693103843231552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f4360ec04653ff4a97ccfa15b9b1f29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
 --- !u!195 &-8342282016701199857
 NavMeshAgent:
   m_ObjectHideFlags: 0

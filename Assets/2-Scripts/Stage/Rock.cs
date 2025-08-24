@@ -20,9 +20,9 @@ namespace Deforestation
 
 		[Header("Configuraion")]
 		[SerializeField]
-		private int _maxSpawnCount = 5; // Máximo de objetos a instanciar
+		private int _maxSpawnCount = 5; // Mï¿½ximo de objetos a instanciar
 		[SerializeField]
-		private float _spawnRadius = 5f; // Radio de instanciación
+		private float _spawnRadius = 5f; // Radio de instanciaciï¿½n
 
 		private HealthSystem _health;
 		#endregion
@@ -34,8 +34,7 @@ namespace Deforestation
 			_health = GetComponent<HealthSystem>();
 			_health.OnDeath += DestroyRock;
 		}
-
-
+		
 		#endregion
 
 		#region Private Methods
@@ -59,13 +58,11 @@ namespace Deforestation
 		private Vector3 RandomPositionAbove()
 		{
 			Vector3 randomDirection = Random.insideUnitSphere;
-			randomDirection.y = Mathf.Abs(randomDirection.y); // Asegura que la dirección es hacia arriba
+			randomDirection.y = Mathf.Abs(randomDirection.y); // Asegura que la direcciï¿½n es hacia arriba
 			float spawnRadiusRandom = Random.Range(0, _spawnRadius);
 			return transform.position + randomDirection * spawnRadiusRandom;
 		}
 		#endregion
 
-		#region Public Methods
-		#endregion
 	}
 }

@@ -3500,7 +3500,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _distanceDetection: 100
-  _attackDistance: 15
+  _attackDistance: 7
+  _targetRunTransform: {fileID: 0}
+  _dinosaurType: 0
+  _chase: 0
+  _attack: 0
+  _runAway: 0
   _attackTime: 2
   _attackDamage: 7
 --- !u!205 &1900955526265983244

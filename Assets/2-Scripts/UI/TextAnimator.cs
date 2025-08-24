@@ -31,7 +31,7 @@ public class TextAnimator : MonoBehaviour
 
     IEnumerator ControlTextAppear()
     {
-        _screenText.text = " ";
+        _screenText.text = "";
         foreach (char character in _gameText.Text)
         {
             _screenText.text += character;

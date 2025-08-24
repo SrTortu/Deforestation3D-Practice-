@@ -51,9 +51,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _crystalPrefab:
   - {fileID: 4003784123300178105, guid: 815568d5c48f22249897cf8df3777ee1, type: 3}
-  - {fileID: 4003784123300178105, guid: 815568d5c48f22249897cf8df3777ee1, type: 3}
-  - {fileID: 4003784123300178105, guid: 815568d5c48f22249897cf8df3777ee1, type: 3}
   - {fileID: 1266612675375492439, guid: c5051c32e9dfda94e9ba3da162752cc4, type: 3}
+  - {fileID: 7089497898414946739, guid: 6cf6c4338a6a5b7458a59dbeb155c488, type: 3}
+  - {fileID: 7089497898414946739, guid: 6cf6c4338a6a5b7458a59dbeb155c488, type: 3}
   _rockPrefab:
   - {fileID: 100000, guid: 857d22af654fa504c856c2b69095df3b, type: 3}
   - {fileID: 100000, guid: a9692a32d610c514b8dd2397c351bebc, type: 3}

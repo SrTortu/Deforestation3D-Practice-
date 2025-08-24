@@ -986,6 +986,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1428620413591946755}
+  - component: {fileID: 5864914427537054018}
   - component: {fileID: 558580619886851198}
   - component: {fileID: 6163568732557521266}
   - component: {fileID: 1466418447808750038}
@@ -995,7 +996,6 @@ GameObject:
   - component: {fileID: 8180635849178333295}
   - component: {fileID: -2414295587318642665}
   - component: {fileID: 2404295065115490137}
-  - component: {fileID: 5864914427537054018}
   - component: {fileID: 7335089997303243968}
   m_Layer: 0
   m_Name: Pachycephalasaurus_Blue
@@ -1029,6 +1029,19 @@ Transform:
   - {fileID: 726237088433447043}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5864914427537054018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772353503318334649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f4360ec04653ff4a97ccfa15b9b1f29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 100
 --- !u!114 &558580619886851198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1042,9 +1055,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _distanceDetection: 100
-  _attackDistance: 15
+  _attackDistance: 7
   _targetRunTransform: {fileID: 726237088433447043}
   _dinosaurType: 0
+  _chase: 0
+  _attack: 0
+  _runAway: 0
   _attackTime: 2
   _attackDamage: 10
 --- !u!205 &6163568732557521266
@@ -1159,7 +1175,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1.1
   MinDistance: 4
-  MaxDistance: 80
+  MaxDistance: 100
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1318,19 +1334,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5864914427537054018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1772353503318334649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f4360ec04653ff4a97ccfa15b9b1f29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxHealth: 100
 --- !u!195 &7335089997303243968
 NavMeshAgent:
   m_ObjectHideFlags: 0

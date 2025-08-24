@@ -34,6 +34,7 @@ namespace Deforestation.Audio
         [SerializeField] private AudioSource _outAmmo;
         [SerializeField] private AudioSource _machineDie;
         [SerializeField] private AudioSource _machineTakeDamage;
+        [SerializeField] private AudioSource _incomingCall;
 
         [Space(20)] [Header("PlayerFx")] [SerializeField]
         private AudioSource _playerDie;
@@ -109,6 +110,11 @@ namespace Deforestation.Audio
         public void ButtonEnterFX()
         {
             _buttonEnter.Play();
+        }
+
+        public void PlayIncomeCall()
+        {
+            _incomingCall.Play();
         }
 
         public void PlayOutAmmo()
