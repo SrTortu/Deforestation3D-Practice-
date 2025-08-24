@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Deforestation;
+using Deforestation.Machine;
 using UnityEngine;
 using Tree = UnityEngine.Tree;
 
@@ -65,17 +66,12 @@ public class MachineGravity : MonoBehaviour
         // Lanza un rayo hacia abajo desde la posici�n del objeto
         if (!Physics.Raycast(transform.position, direction, out hit, _fallDistance, layerMask))
         {
-            _machineRigidbody.AddForce(direction * _gravityForce, ForceMode.Impulse);
-            _isGrounded = false;
+            MachineController.Instance.IsGrounded = false;
         }
         else
         {
-            _isGrounded = true;
+            MachineController.Instance.IsGrounded = true;
         }
     }
-
-    private void Jump()
-    {
-        
-    }
+    
 }

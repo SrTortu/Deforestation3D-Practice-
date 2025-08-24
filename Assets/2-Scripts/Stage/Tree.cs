@@ -4,50 +4,47 @@ using Random = UnityEngine.Random;
 
 namespace Deforestation
 {
+    public class Tree : MonoBehaviour
+    {
+        #region Fields
 
-	public class Tree : MonoBehaviour
-	{
-		#region Fields
-		[SerializeField] private GameObject _fire;
-		private HealthSystem _health;
-		#endregion
+        [SerializeField] private GameObject _fire;
+        private HealthSystem _health;
 
-		#region Properties
-	public int Index { get; set; }
-		#endregion
+        #endregion
 
-		#region Unity Callbacks	
-		private void Awake()
-		{
-			_health = GetComponent<HealthSystem>();
-			if (_health!= null)
-				_health.OnDeath += Die;
-		}
+        #region Properties
 
-		private void Die()
-		{
-			Destroy(gameObject);
+        public int Index { get; set; }
 
-			int veces = Random.Range(1, 5); // Genera un número aleatorio entre 1 y 4
-			for (int i = 0; i < veces; i++)
-			{
-				Vector3 destinoAleatorio = Random.insideUnitSphere * 5;
-				destinoAleatorio += transform.position;
-				UnityEngine.AI.NavMeshHit hit;
-				if (UnityEngine.AI.NavMesh.SamplePosition(destinoAleatorio, out hit, 5, 1))
-				{
-					Instantiate(_fire, hit.position, Quaternion.identity);
-				}
-			}
-		}
+        #endregion
 
-		#endregion
+        #region Unity Callbacks
 
-		#region Private Methods
-		#endregion
+        private void Awake()
+        {
+            _health = GetComponent<HealthSystem>();
+            if (_health != null)
+                _health.OnDeath += Die;
+        }
 
-		#region Public Methods
-		#endregion
+        private void Die()
+        {
+            Destroy(gameObject);
 
-	}
+            int veces = Random.Range(1, 5); // Genera un nï¿½mero aleatorio entre 1 y 4
+            for (int i = 0; i < veces; i++)
+            {
+                Vector3 destinoAleatorio = Random.insideUnitSphere * 5;
+                destinoAleatorio += transform.position;
+                UnityEngine.AI.NavMeshHit hit;
+                if (UnityEngine.AI.NavMesh.SamplePosition(destinoAleatorio, out hit, 5, 1))
+                {
+                    Instantiate(_fire, hit.position, Quaternion.identity);
+                }
+            }
+        }
+
+        #endregion
+    }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -23,10 +24,12 @@ namespace Deforestation.Dinosaurus
         [SerializeField] private bool _chase;
         [SerializeField] private bool _attack;
         [SerializeField] private bool _runAway;
-         private float _attackColdDown;
+        private float _attackColdDown;
+        private bool _runAwayCorutine;
 
         [SerializeField] private float _attackTime = 2;
         [SerializeField] private float _attackDamage = 5;
+        
 
         #endregion
 
@@ -50,6 +53,22 @@ namespace Deforestation.Dinosaurus
         {
             float distanceTarget = Vector3.Distance(transform.position, _targetAttackTransform.position);
 
+
+            //Runaway
+            if (_chase && _dinosaurType == DinosaurType.Raptor && GameController.Instance.MachineModeOn &&
+                distanceTarget < _distanceDetection)
+            {
+                transform.LookAt(_targetAttackTransform);
+                RunAway(_targetRunTransform.position);
+                Debug.Log(" 3");
+                return;
+            }
+
+            if (_runAway && !_runAwayCorutine)
+            {
+                StartCoroutine(FixRunAway());
+            }
+
             //Chase
             if (!_chase && !_runAway && !_attack && distanceTarget < _distanceDetection)
             {
@@ -68,17 +87,6 @@ namespace Deforestation.Dinosaurus
                     Debug.Log(" 2");
                 }
             }
-
-            //Runaway
-            if (_chase && _dinosaurType == DinosaurType.Raptor && GameController.Instance.MachineModeOn &&
-                distanceTarget < _distanceDetection)
-            {
-                transform.LookAt(_targetAttackTransform);
-                RunAway(_targetRunTransform.position);
-                Debug.Log(" 3");
-                return;
-            }
-            
 
             //Attack
             if ((_chase || _attack) && distanceTarget < _attackDistance)
@@ -119,7 +127,7 @@ namespace Deforestation.Dinosaurus
         private Vector3 GetRunawayDirection()
         {
             Vector3 direction = _targetAttackTransform.position - transform.position;
-            direction = direction.normalized ;
+            direction = direction.normalized;
             return direction;
         }
 
@@ -140,9 +148,11 @@ namespace Deforestation.Dinosaurus
             _chase = true;
             _attack = false;
         }
-        
+
         private void RunAway(Vector3 destination)
         {
+            Debug.unityLogger.Log("RunAway");
+            _agent.isStopped = true;
             _anim.SetBool("Run", true);
             _agent.SetDestination(destination);
             _agent.isStopped = false;
@@ -169,6 +179,16 @@ namespace Deforestation.Dinosaurus
 
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, _attackDistance);
+        }
+
+        IEnumerator FixRunAway()
+        {
+            _agent.isStopped = true;
+            yield return new WaitForSeconds(0.5f);
+            _agent.isStopped = false;
+            _agent.SetDestination(_targetRunTransform.position);
+            Debug.Log(" Corutine");
+            _runAwayCorutine = true;
         }
     }
 }

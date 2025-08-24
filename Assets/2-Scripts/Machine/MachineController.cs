@@ -12,13 +12,19 @@ namespace Deforestation.Machine
 		public HealthSystem HealthSystem => _health;
 		public WeaponController WeaponController;
 		public Action<bool> OnMachineDriveChange;
+		public bool IsGrounded {get; set; }
 
 		#endregion
 
 		#region Fields
+		
+		[SerializeField] private float _gravityForce;
+		
 		private HealthSystem _health;
 		private MachineMovement _movement;
 		private Animator _anim;
+		private Rigidbody _rigidbody;
+		
 
 		#endregion
 
@@ -28,6 +34,7 @@ namespace Deforestation.Machine
 			_health = GetComponent<HealthSystem>();
 			_movement = GetComponent<MachineMovement>();
 			_anim = GetComponent<Animator>();
+			_rigidbody = GetComponent<Rigidbody>();
 
 		}
 		// Start is called before the first frame update
@@ -44,6 +51,12 @@ namespace Deforestation.Machine
 			if (Input.GetKeyUp(KeyCode.Escape))
 			{
 				StopDriving();
+			}
+
+			if (!IsGrounded)
+			{
+				Vector3 direction = -transform.up;
+				_rigidbody.AddForce(direction * _gravityForce, ForceMode.Impulse);
 			}
 		}		
 
@@ -94,8 +107,6 @@ namespace Deforestation.Machine
 		}
 		#endregion
 
-		#region Private Methods
-		#endregion
 	}
 
 }

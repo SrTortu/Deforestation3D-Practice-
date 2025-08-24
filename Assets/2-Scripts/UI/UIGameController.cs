@@ -77,6 +77,7 @@ namespace Deforestation.UI
             _confirmSettingsButton.onClick.AddListener(ConfirmSettingsButtonOnClick);
             _exitResetButton.onClick.AddListener(ExitButtonOnClick);
             _mainMenuButton.onClick.AddListener(GoToMainMenu);
+            _mainMenuButton.onClick.AddListener(GameController.Instance.PlayGameTime);
         }
 
 
@@ -88,7 +89,7 @@ namespace Deforestation.UI
             }
 
             if (_mouseLockTimer > 3f && Cursor.lockState == CursorLockMode.None && !_settingsOn &&
-                !_gameOverPanel.activeSelf)
+                !_gameOverPanel.activeSelf && !GameController.Instance.MachineModeOn)
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 _mouseLockTimer = 0f;

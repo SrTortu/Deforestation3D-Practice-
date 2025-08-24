@@ -68,15 +68,6 @@ namespace Deforestation
             MachineModeOn = false;
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                PlayerDeath();
-            }
-        }
-
         #endregion
 
         #region Public Methods
@@ -87,7 +78,7 @@ namespace Deforestation
             _playerController.transform.position = target;
             _playerController.enabled = true;
         }
-        
+
 
         public void PlayerDeath()
         {
@@ -95,7 +86,10 @@ namespace Deforestation
             Time.timeScale = 0f;
         }
 
-
+        public void PlayGameTime()
+        {
+            Time.timeScale = 1f;
+        }
         internal void MachineMode(bool machineMode)
         {
             MachineModeOn = machineMode;

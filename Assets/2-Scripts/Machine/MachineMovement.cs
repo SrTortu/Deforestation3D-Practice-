@@ -72,7 +72,11 @@ namespace Deforestation.Machine
                 {
                     energyTimer += Time.deltaTime;
                     if (energyTimer >= energyDecayRate)
+                    {
                         _inventory.UseResource(RecolectableType.HyperCrystal);
+                        energyTimer = 0;
+                        
+                    }
                 }
             }
             else
