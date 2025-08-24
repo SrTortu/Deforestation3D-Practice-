@@ -89,7 +89,7 @@ namespace Deforestation.Dinosaurus
             }
 
             //Attack
-            if ((_chase || _attack) && distanceTarget < _attackDistance)
+            if ((_chase || _attack) &&!_runAway && distanceTarget < _attackDistance)
             {
                 AttackAnim();
                 MakeDamage();
