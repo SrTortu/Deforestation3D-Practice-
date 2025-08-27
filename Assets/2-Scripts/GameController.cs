@@ -6,6 +6,7 @@ using Deforestation.Interaction;
 using Cinemachine;
 using System;
 using System.Collections;
+using StarterAssets;
 using UnityEngine.SceneManagement;
 
 namespace Deforestation
@@ -43,6 +44,7 @@ namespace Deforestation
 
         [SerializeField] protected Inventory _inventory;
         [SerializeField] protected InteractionSystem _interactionSystem;
+        [SerializeField] protected FirstPersonController _firstPersonController;
 
         [Header("Camera")] [SerializeField] protected CinemachineVirtualCamera _virtualCamera;
         [SerializeField] protected Transform _playerFollow;
@@ -74,11 +76,8 @@ namespace Deforestation
             _machine.HealthSystem.OnDeath += PlayerDeath;
             MachineModeOn = false;
             _transposer = _virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
-        }
+            _firstPersonController = _playerController.GetComponent<FirstPersonController>();
 
-        protected override void Awake()
-        {
-            base.Awake();
         }
 
         #endregion
@@ -87,9 +86,11 @@ namespace Deforestation
 
         public void TeleportPlayer(Vector3 target)
         {
+            _firstPersonController.enabled = false;
             _playerController.enabled = false;
             _playerController.transform.position = target;
             _playerController.enabled = true;
+            _firstPersonController.enabled = true;
         }
 
 
@@ -127,17 +128,13 @@ namespace Deforestation
                 Cursor.lockState = CursorLockMode.None;
                 //Camera
                 _virtualCamera.Follow = _machineFollow;
-                StartCoroutine(CameraLookAt(LookAtTarget));
                 _transposer.Damping = new Vector3(3, 3, 3);
-
-
                 _machine.enabled = true;
                 _machine.WeaponController.enabled = true;
                 _machine.GetComponent<MachineMovement>().enabled = true;
             }
             else
             {
-                CameraUnLookAt();
                 _machine.WeaponController.enabled = false;
                 _machine.GetComponent<MachineMovement>().enabled = false;
                 _playerController.transform.parent = null;
@@ -156,21 +153,23 @@ namespace Deforestation
         #endregion
 
 
-        public IEnumerator EndGame()
+        public void LoadStartScene()
         {
-            yield return new WaitForSeconds(5f);
             SceneManager.LoadScene(0);
         }
 
         public IEnumerator CameraLookAt(Transform target)
         {
             HealthSystem healthTarget = target.GetComponent<HealthSystem>();
+            _machineFollow.position = new Vector3(_machineFollowBackUp.position.x,
+               _machineFollowBackUp.position.y-22f, _machineFollowBackUp.position.z);
             while (!healthTarget.IsDead)
             {
                 _machineFollow.LookAt(target);
                 yield return null;
             }
 
+            yield return new WaitForSeconds(2f);
             CameraUnLookAt();
         }
 

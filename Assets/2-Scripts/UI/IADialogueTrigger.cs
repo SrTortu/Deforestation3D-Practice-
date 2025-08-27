@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Deforestation.Audio;
 using Deforestation.Machine;
 using UnityEngine;
 
@@ -22,6 +23,7 @@ public class IADialogueTrigger : MonoBehaviour
         if (other.tag == "Player" || (other.tag == "Machine" && MachineController.Instance.IsMoving()))
         {
             StartCoroutine(IATextController.Instance.StartDialogue(_text));
+            AudioController.Instance.PlayIncomeCall();
             if (!_shouldKeepActive)
             {
                 gameObject.SetActive(false);

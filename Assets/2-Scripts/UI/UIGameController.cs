@@ -53,8 +53,6 @@ namespace Deforestation.UI
         [Header("EndPanel")] [SerializeField] private GameObject _endPanel;
         [SerializeField] private TextMeshProUGUI _endText;
 
-        
-
 
         private bool _settingsOn = false;
         private float _mouseLockTimer = 0f;
@@ -245,13 +243,13 @@ namespace Deforestation.UI
             text.gameObject.SetActive(false);
         }
 
-        public void ShowEnd()
+        public IEnumerator ShowEnd()
         {
+            yield return new WaitForSeconds(10f);
             _endPanel.SetActive(true);
             Image panelBackground = _endPanel.GetComponent<Image>();
             panelBackground.DOFade(1, 3);
             _endText.DOFade(1, 3);
-            StartCoroutine(GameController.Instance.EndGame());
             AudioController.Instance.EndMusic();
         }
     }

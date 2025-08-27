@@ -28,7 +28,7 @@ public class IATextAnimator : MonoBehaviour
             yield return new WaitForSeconds(_timeAppear);
         }
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         StartCoroutine(ControlPanelDissapear(panel));
         ControlTextDissappear(titleText);
         ControlTextDissappear(screenText);

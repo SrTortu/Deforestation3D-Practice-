@@ -824,7 +824,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: -1}
+  m_LocalScale: {x: 3, y: 3, z: -3}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6534221983324782888}
@@ -851,8 +851,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5889ac00b8945264e8fbffb683f9632f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distanceDetection: 50
-  _attackDistance: 5
+  _distanceDetection: 100
+  _attackDistance: 10
   _targetRunTransform: {fileID: 8760445668238623713}
   _dinosaurType: 1
   _chase: 0
@@ -948,7 +948,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.32
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1130,7 +1130,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 7
+  m_Speed: 11
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -1157,12 +1157,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.13, y: 2.7325385, z: 2.67}
+  m_Center: {x: 0, y: 0.86626923, z: 0}
 --- !u!1 &1132900715807891559
 GameObject:
   m_ObjectHideFlags: 0
@@ -5325,7 +5325,7 @@ Transform:
   m_GameObject: {fileID: 9018153334255368047}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 127.2}
+  m_LocalPosition: {x: 0, y: 0, z: 33.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

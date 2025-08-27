@@ -12,7 +12,8 @@ public class EndTrigger : MonoBehaviour
    {
       if (other.tag == "Player" || (other.tag == "Machine" && MachineController.Instance.IsMoving()))
       {
-         UIGameController.Instance.ShowEnd();
+         StartCoroutine(UIGameController.Instance.ShowEnd());
+
       }
    }
 }

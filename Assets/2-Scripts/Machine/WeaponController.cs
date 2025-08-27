@@ -41,7 +41,7 @@ namespace Deforestation.Machine.Weapon
 				direccion.y = 0;
 
 				Quaternion rotacionObjetivo = Quaternion.LookRotation(direccion);
-				_towerWeapon.rotation = Quaternion.Slerp(transform.rotation, rotacionObjetivo, _speedRotation * Time.deltaTime);
+				_towerWeapon.rotation = rotacionObjetivo;
 			}
 			if (Input.GetMouseButtonUp(0) && GameController.Instance.MachineModeOn)
 			{
