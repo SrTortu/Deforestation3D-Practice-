@@ -7,15 +7,30 @@ namespace Deforestation
 	public class HealthSystem : MonoBehaviour
 	{
 		public event Action<float> OnHealthChanged;
+		public bool IsDead => _isDead;
 		public event Action OnDeath;
 
 		[SerializeField]
 		private float _maxHealth = 100f;
 		private float _currentHealth;
+		private bool _isDead = false;
 
 		private void Awake()
 		{
 			_currentHealth = _maxHealth;
+		}
+
+		private void Update()
+		{
+			if (_isDead)
+			{
+				return;
+			}
+			if (_currentHealth <= 0)
+			{
+				Die();
+				_isDead = true;
+			}
 		}
 
 		public void TakeDamage(float damage)
@@ -23,10 +38,7 @@ namespace Deforestation
 			_currentHealth -= damage;
 			OnHealthChanged?.Invoke(_currentHealth);
 
-			if (_currentHealth <= 0)
-			{
-				Die();
-			}
+			
 		}
 
 		public void Heal(float amount)

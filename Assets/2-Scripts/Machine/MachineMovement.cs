@@ -9,7 +9,18 @@ namespace Deforestation.Machine
 {
     public class MachineMovement : MonoBehaviour
     {
-        public bool IsMoving => _isMoving;
+        public bool IsMoving
+        {
+            get
+            {
+                return _isMoving;
+            }
+            set
+            {
+                _isMoving = value;
+            }
+        }
+
         public bool IsJumping => _isJumping;
 
         #region Fields
@@ -21,7 +32,7 @@ namespace Deforestation.Machine
         private Rigidbody _rb;
         private MachineGravity _machineGravity;
         private Vector3 _movementDirection;
-        private bool _isMoving;
+        [SerializeField]private bool _isMoving;
         private bool _isGrounded = false;
         private bool _isJumping = false;
         private Inventory _inventory => GameController.Instance.Inventory;
@@ -45,9 +56,9 @@ namespace Deforestation.Machine
             //jump
             if (Input.GetKeyUp(KeyCode.Space) && _isMoving && _machineGravity.IsGrounded)
             {
-                if (_inventory.HasResource(RecolectableType.MegaCrystal, 20))
+                if (_inventory.HasResource(RecolectableType.MegaCrystal, 5))
                 {
-                    _inventory.UseResource(RecolectableType.MegaCrystal, 20);
+                    _inventory.UseResource(RecolectableType.MegaCrystal, 5);
                     _isJumping = true;
                     AudioController.Instance.PlayMachineJump();
                 }

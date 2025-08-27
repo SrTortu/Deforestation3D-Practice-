@@ -65,14 +65,15 @@ namespace Deforestation.Machine
 		#region Public Methods
 		public void StopDriving()
 		{
+			OnMachineDriveChange?.Invoke(false);
 			GameController.Instance.MachineMode(false);
 			StopMoving();
-			OnMachineDriveChange?.Invoke(false);
 
 		}
 
 		public void StartDriving(bool machineMode)
 		{
+			
 			enabled = machineMode;
 			_movement.enabled = machineMode;
 			_anim.SetTrigger("WakeUp");
@@ -83,6 +84,7 @@ namespace Deforestation.Machine
 		public void StopMoving()
 		{
 			_movement.enabled = false;
+			_movement.IsMoving = false;
 			_anim.SetBool("Move", false);
 		}
 		public void GetDamage(float damage = 0)

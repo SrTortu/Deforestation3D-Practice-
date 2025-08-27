@@ -7,12 +7,16 @@ using UnityEngine.UI;
 
 public class IATextAnimator : MonoBehaviour
 {
+    public bool CorrutineIsOn = false;
+    
+    
     [SerializeField] private float _timeAppear;
     [SerializeField] private float _timeFadeOut;
 
     public IEnumerator ControlTextAppear(TextMeshProUGUI screenText, TextMeshProUGUI titleText,
         GameText gameText, GameObject panel)
     {
+        CorrutineIsOn = true;
         screenText.text = "";
         panel.SetActive(true);
         panel.GetComponent<Image>().DOFade(0.4f, 0);
@@ -28,6 +32,7 @@ public class IATextAnimator : MonoBehaviour
         StartCoroutine(ControlPanelDissapear(panel));
         ControlTextDissappear(titleText);
         ControlTextDissappear(screenText);
+        CorrutineIsOn = false;
     }
 
     private IEnumerator ControlPanelDissapear(GameObject panel)

@@ -997,6 +997,7 @@ GameObject:
   - component: {fileID: -2414295587318642665}
   - component: {fileID: 2404295065115490137}
   - component: {fileID: 7335089997303243968}
+  - component: {fileID: 8220381882607799077}
   m_Layer: 0
   m_Name: Pachycephalasaurus_Blue
   m_TagString: Untagged
@@ -1356,6 +1357,18 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8220381882607799077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1772353503318334649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d581d8f3401ddb4ca8e2147177276a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1814898147390210858
 GameObject:
   m_ObjectHideFlags: 0

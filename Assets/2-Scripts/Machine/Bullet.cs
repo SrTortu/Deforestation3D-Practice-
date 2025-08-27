@@ -28,10 +28,14 @@ namespace Deforestation.Machine.Weapon
 		}
 		private void OnTriggerEnter(Collider other)
 		{
+			if (other.gameObject.CompareTag("Machine"))
+			{
+				return;
+			}
 			HealthSystem health = other.GetComponent<HealthSystem>();
-			if (health != null)
+			if (health != null && !health.CompareTag("Machine"))
 				health.TakeDamage(_damage);
-			
+
 			Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
 			Destroy(gameObject, 1);
 			GetComponent<Collider>().enabled = false;

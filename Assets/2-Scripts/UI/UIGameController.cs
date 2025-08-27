@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using Deforestation.Audio;
 using Deforestation.Interaction;
+using DG.Tweening;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -46,9 +47,14 @@ namespace Deforestation.UI
         [SerializeField] private Button _mainMenuButton;
         [SerializeField] private Button _exitResetButton;
 
-        [Header("HUD")] 
-        [SerializeField] private TextMeshProUGUI _jumpErrorText;
+        [Header("HUD")] [SerializeField] private TextMeshProUGUI _jumpErrorText;
         [SerializeField] private TextMeshProUGUI _ammoErrorText;
+
+        [Header("EndPanel")] [SerializeField] private GameObject _endPanel;
+        [SerializeField] private TextMeshProUGUI _endText;
+
+        
+
 
         private bool _settingsOn = false;
         private float _mouseLockTimer = 0f;
@@ -101,6 +107,7 @@ namespace Deforestation.UI
         private void ShowGameOverPanel()
         {
             _gameOverPanel.SetActive(true);
+            AudioController.Instance.GameOver();
         }
 
         private void SwitchSettings()
@@ -223,19 +230,29 @@ namespace Deforestation.UI
 
         public void InsufficientMegaCrystal()
         {
-            StartCoroutine(ShowText(_jumpErrorText,1.5f));
+            StartCoroutine(ShowText(_jumpErrorText, 1.5f));
         }
 
         public void InsufficientAmmoCrystal()
         {
-            StartCoroutine(ShowText(_ammoErrorText,1.5f));
+            StartCoroutine(ShowText(_ammoErrorText, 1.5f));
         }
 
         IEnumerator ShowText(TextMeshProUGUI text, float time)
         {
-            text.gameObject.SetActive(true); 
+            text.gameObject.SetActive(true);
             yield return new WaitForSeconds(time);
             text.gameObject.SetActive(false);
+        }
+
+        public void ShowEnd()
+        {
+            _endPanel.SetActive(true);
+            Image panelBackground = _endPanel.GetComponent<Image>();
+            panelBackground.DOFade(1, 3);
+            _endText.DOFade(1, 3);
+            StartCoroutine(GameController.Instance.EndGame());
+            AudioController.Instance.EndMusic();
         }
     }
 }

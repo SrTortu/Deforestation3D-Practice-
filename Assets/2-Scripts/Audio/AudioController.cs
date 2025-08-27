@@ -56,6 +56,7 @@ namespace Deforestation.Audio
 
         [SerializeField] private AudioSource _gameOverMusic;
         [SerializeField] private AudioSource _musicHuman;
+        [SerializeField] private AudioSource _endMusic;
 
         private AudioSource currentSource;
         private AudioSource nextSource;
@@ -178,6 +179,13 @@ namespace Deforestation.Audio
             _musicHuman.DOFade(0, 3);
             _musicMachine.DOFade(0, 3);
             _gameOverMusic.Play();
+        }
+
+        public void EndMusic()
+        {
+            _musicHuman.DOFade(0, 3);
+            _musicMachine.DOFade(0, 3);
+            _endMusic.Play();
         }
 
         #region Private Methods

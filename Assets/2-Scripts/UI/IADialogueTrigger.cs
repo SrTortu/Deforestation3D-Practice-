@@ -1,26 +1,31 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Deforestation.Machine;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(GameText))]
 public class IADialogueTrigger : MonoBehaviour
 {
-    
-     private GameText _text;
+    [SerializeField] private bool _shouldKeepActive;
+    private GameText _text;
 
-     private void Awake()
-     {
-         _text = GetComponent<GameText>();
-     }
 
-     private void OnTriggerEnter(Collider other)
+    private void Awake()
     {
-        if (other.tag == "Player")
+        _text = GetComponent<GameText>();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player" || (other.tag == "Machine" && MachineController.Instance.IsMoving()))
         {
-            IATextController.Instance.StartDialogue(_text);
-            gameObject.SetActive(false);
+            StartCoroutine(IATextController.Instance.StartDialogue(_text));
+            if (!_shouldKeepActive)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }
